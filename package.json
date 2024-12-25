@@ -1,23 +1,44 @@
 {
   "name": "unsource-icons",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "rollup -c --bundleConfigAsCjs"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rockyessel/unsource-icons.git"
+  },
+  "keywords": [
+    "technology-icons",
+    "colored-icons",
+    "icons",
+    "language-icons"
+  ],
+  "author": "Rocky Essel",
   "license": "ISC",
   "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rockyessel/unsource-icons/issues"
+  },
+  "homepage": "https://github.com/rockyessel/unsource-icons#readme",
   "description": "",
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
-    "typescript": "^5.7.2"
-  },
-  "dependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "rollup": "^4.29.1",
+    "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "tslib": "^2.8.1",
+    "typescript": "^5.7.2"
   }
 }

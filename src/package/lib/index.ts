@@ -269,6 +269,7 @@ export const getIcon = (name: IconNameType, defaultOption?: IconNameType) => {
   const regex = new RegExp(name, 'i'); // 'i' for case-insensitive match
 
   for (const [key, icon] of Object.entries(iconLibrary)) {
+    console.log({ key, icon });
     if (regex.test(key)) {
       return icon; // Return icon if match
     }

@@ -1,8 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { IconNameType, UnsrcIconProps } from '../../types';
 import { getIcon } from '../../lib';
+import { IconNameType, UnsrcIconProps } from '../../types';
 
 interface Props extends UnsrcIconProps {
   name: IconNameType;
@@ -17,7 +17,7 @@ const UnsourceIcon = (props: Props) => {
 
   const Icon = getIcon(name, defaultOption);
 
-  return <Icon  size={size} className={className} {...rest} />;
+  return <Icon size={size} className={className} {...rest} />;
 };
 
 export default UnsourceIcon;

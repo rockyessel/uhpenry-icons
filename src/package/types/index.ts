@@ -8,9 +8,6 @@ export interface IconProps extends React.SVGAttributes<SVGElement> {
   color?: string;
 }
 
-// export type UnsrcIconType = ForwardRefExoticComponent<
-//   IconProps & RefAttributes<SVGSVGElement>
-//   >;
 export type UnsrcIconType = React.SVGProps<SVGSVGElement>;
 
 export interface UnsrcIconProps extends Partial<SVGProps<SVGSVGElement>> {

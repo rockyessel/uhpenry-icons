@@ -1,23 +1,22 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "ES6",
-    "jsx": "react",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "types": ["react", "react-dom"],
-    "lib": ["dom", "esnext"],
-    "declaration": true,
-    "outDir": "dist",
-    "strict": true,
-    "esModuleInterop": true,
+    "allowJs": true,
     "skipLibCheck": true,
-    "baseUrl": "./src",
-    "moduleResolution": "bundler",
-    "paths": {
-      "lib": ["./lib/index.ts"],
-      "icons": ["./icons/index.tsx"],
-      "types": ["./types/index.ts"]
-    }
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
   },
   "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "src/app"]
 }
