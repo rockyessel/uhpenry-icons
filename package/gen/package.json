@@ -1,0 +1,14 @@
+{
+  "name": "gen",
+  "version": "1.0.0",
+  "main": "index.js",
+  "types": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": "",
+  "dependencies": {
+    "@cpmech/basic": "^4.35.1"
+  }
+}
