@@ -281,7 +281,6 @@ export const getIcon = (name: IconNameType, defaultOption?: IconNameType) => {
   const regex = new RegExp(name, 'i'); // 'i' for case-insensitive match
 
   for (const [key, icon] of Object.entries(library)) {
-    console.log({ key, icon });
     if (regex.test(key)) {
       return icon; // Return icon if match
     }
@@ -290,6 +289,3 @@ export const getIcon = (name: IconNameType, defaultOption?: IconNameType) => {
   // Return the provided defaultOption if no match is found, otherwise fallback to 'default'
   return defaultOption ? library[defaultOption] : library.default;
 };
-
-
-
