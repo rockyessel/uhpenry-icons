@@ -44,4 +44,5 @@ export const NATIVE_ATTR = [
     'stroke-linecap',          // Specifies the shape of the end of a stroke.
     'xmlns:xlink',             // Declares the XML namespace for xlink.
     'xlink:href',              // Specifies the URI of a resource to link to in an SVG.
+    'xml:space'
 ];

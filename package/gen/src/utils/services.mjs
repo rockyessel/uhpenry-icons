@@ -13,7 +13,6 @@ import { ICON_DIR, INDEX_FILE } from './constants.mjs';
  * @returns {string} The generated React component code as a string.
  */
 export const generateComponent = (name, svgContent) => {
-  console.log({ svgContent })
   // Extract the viewBox attribute from the SVG content
   const viewBoxMatch = svgContent.match(/<svg[^>]*\sviewBox=['"]([^'"]+)['"]/);
   const viewBox = viewBoxMatch ? `viewBox="${viewBoxMatch[1]}"` : '';
