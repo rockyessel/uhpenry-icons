@@ -1,111 +1,124 @@
-# unsource-icons
+# Uhpenry Icons
 
-## Overview
+**Uhpenry Icons** is a lightweight React library for dynamically rendering SVG icons without fetching them from a server or making additional HTTP requests. This package allows you to store, manage, and render SVG icons efficiently with support for dark and light themes.
 
-`unsource-icons` is an open-source package providing developers with a library of beautifully crafted, fully colored, and customizable tech-related icons. The library includes icons for popular frameworks, libraries, programming languages, and more. Each icon represents its respective technology with vibrant and authentic branding colors, making them ideal for enhancing the aesthetics of your project.
-
----
-
-## Features
-
-- **Extensive Library**: Icons for technologies like React.js, TailwindCSS, Docker, Python, and many more.
-- **Customizable Size**: Easily resize icons to suit your design needs.
-- **Fully Colored**: Icons come with standard colors representing their respective brands.
-- **Ease of Use**: Simple imports and straightforward integration.
+## 🚀 Features
+- 📦 **No External Requests** – Icons are embedded as React components.
+- 🎨 **Dark & Light Mode Support** – Automatically switches based on theme.
+- ⚡ **Fast & Efficient** – No need for extra network calls.
+- 🔄 **Easy to Extend** – Add your own custom icons.
+- 🛠️ **Lightweight** – No bloated dependencies.
 
 ---
 
-## Installation
+## 📥 Installation
 
-To install the package, run:
-
-```bash
-npm install unsource-icons
+Install via npm:
+```sh
+npm install uhpenry-icons
 ```
-
-or
-
-```bash
-yarn add unsource-icons
+Or via yarn:
+```sh
+yarn add uhpenry-icons
 ```
 
 ---
 
-## Usage
+## 🔧 Usage
 
-### Basic Usage
+### **Import and Use an Icon**
+```tsx
+import { IconRenderer, icons } from "uhpenry-icons";
 
-To use an icon, import it and render it in your React component:
-
-```jsx
-import React from 'react';
-import { ReactJsIcon, TailwindCSSIcon } from 'unsource-icons';
-
-const App = () => (
-  <div>
-    <ReactJsIcon size={40} />
-    <TailwindCSSIcon size={50} />
-  </div>
-);
-
-export default App;
+const MyComponent = ({ tech, theme }) => {
+  return <IconRenderer svgString={icons[tech][theme]} className="w-10 h-10" />;
+};
 ```
 
-### Customizing Icons
+### **Example Usage**
+```tsx
+import { IconRenderer, icons } from "uhpenry-icons";
 
-Icons can be resized and styled using props like `size` and `className`:
-
-```jsx
-<ReactJsIcon size={60} className='custom-class' />
-```
-
----
-
-## API
-
-### `Icon Components`
-
-All icons are available as individual React components. You can import only the icons you need to optimize bundle size.
-
-### `getIcon`
-
-Dynamically fetch an icon by name:
-
-```javascript
-import { getIcon } from 'unsource-icons';
-
-const MyIcon = getIcon('React.js');
+export default function App() {
+  return (
+    <div>
+      <h1>Technology Icons</h1>
+      <IconRenderer svgString={icons.react.light} className="w-10 h-10" />
+      <IconRenderer svgString={icons.nextjs.dark} className="w-10 h-10" />
+    </div>
+  );
+}
 ```
 
 ---
 
-## Available Icons
+## 📂 Available Icons
+The package includes icons for various technologies. Each icon has two versions: `light` and `dark`. Example:
+```json
+{
+  "react": {
+    "light": "<svg>...</svg>",
+    "dark": "<svg>...</svg>"
+  },
+  "nextjs": {
+    "light": "<svg>...</svg>",
+    "dark": "<svg>...</svg>"
+  }
+}
+```
 
-The library includes icons for various categories, such as:
-
-- **Frameworks**: React.js, Angular.js, Vue.js, Svelte, Next.js
-- **Programming Languages**: JavaScript, Python, Java, Ruby, PHP, Go, Rust
-- **Tools**: Docker, Webpack, Vite, Rollup, Git
-- **CSS Frameworks**: TailwindCSS, Material UI, Ant Design
-
----
-
-## Contributing
-
-We welcome contributions! If you want to add more icons or improve the package, feel free to:
-
-1. Fork the repository.
-2. Make your changes.
-3. Open a pull request.
+You can find the full list of supported icons in the `icons.json` file.
 
 ---
 
-## License
+## 🌟 Adding Custom Icons
+The SVG icons are sourced from the [SVGL repository](https://github.com/pheralb/svgl/tree/main?tab=readme-ov-file). If you want to add new icons, please contribute to that repository first. Every Monday, the latest updates from SVGL are published in this package.
 
-This project is licensed under the [MIT License](LICENSE).
+To add a custom icon manually, you can modify the `icons.json` file:
+```json
+{
+  "yourTech": {
+    "light": "<svg>Your SVG Code Here</svg>",
+    "dark": "<svg>Your SVG Code Here</svg>"
+  }
+}
+```
+
+Then, you can use it like this:
+```tsx
+<IconRenderer svgString={icons.yourTech.light} />
+```
 
 ---
 
-## Feedback
+## 💡 Why Use Uhpenry Icons?
+✅ No external dependencies required  
+✅ Faster than loading icons from a CDN  
+✅ Works seamlessly with dark mode  
+✅ Easily extendable with new icons  
 
-We’d love to hear your thoughts! Reach out with feedback or feature requests to help us improve the package.
+---
+
+## 🔄 Contributing
+We welcome contributions! If you want to add more icons or improve the package:
+1. Fork the [SVGL repository](https://github.com/pheralb/svgl/tree/main?tab=readme-ov-file) and add your icons there.
+2. Once merged, the updates will be published every Monday.
+3. If needed, submit a pull request to this repository for additional modifications.
+
+---
+
+## 📜 License
+This project is licensed under the **MIT License**.
+
+### ⚠️ Disclaimer
+Uhpenry Icons does not own any of the icons included in this package. All icons are the property of their respective owners. If you wish to have an icon removed, please first remove it from the [SVGL repository](https://github.com/pheralb/svgl/tree/main?tab=readme-ov-file), and the change will be reflected in the next update.
+
+---
+
+## 📞 Support
+For any questions or issues, open an issue on GitHub or reach out via [Uhpenry](https://uhpenry.com).
+
+---
+
+🚀 **Happy Coding!**
+
