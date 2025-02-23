@@ -7,13 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "link": "npm link unsource-icons"
+    "link": "npm link uhpenry-icons"
   },
   "dependencies": {
     "next": "15.1.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "unsource-icons": "^0.0.3"
+    "uhpenry-icons": "^0.0.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

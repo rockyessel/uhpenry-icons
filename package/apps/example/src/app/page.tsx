@@ -4,7 +4,7 @@ import {
   APIIcon,
   getIcon,
   library,
-} from 'unsource-icons';
+} from 'uhpenry-icons';
 
 const Home = async () => {
   const Actix = getIcon('Actix');
