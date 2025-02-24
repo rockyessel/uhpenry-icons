@@ -1,5 +1,3 @@
-
-
 export const svgs = [
   {
     title: 'PayPal',

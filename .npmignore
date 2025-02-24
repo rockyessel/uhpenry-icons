@@ -4,6 +4,5 @@ rollup.config.js
 tsconfig.json
 .gitignore
 app
-gen
-logo-svgs
+scripts
 /package/apps
