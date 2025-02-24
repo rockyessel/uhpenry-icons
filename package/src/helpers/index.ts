@@ -1,5 +1,6 @@
 import { SVGElementData, IIconLibrary, IconNames } from '../types';
 import { ICON_LIBRARY, NATIVE_ATTR, SVG_SPECIAL_CASES } from '../constants';
+import { XMLParser } from 'fast-xml-parser';
 
 export const isCol = (p: string): boolean => p.includes(':');
 
@@ -73,49 +74,90 @@ export const convertPropsToReact = (
   return reactProps;
 };
 
-export const extractElementAttributes = (element: Element): SVGElementData => {
+const parser = new XMLParser({
+  ignoreAttributes: false, // Keep attributes
+  attributeNamePrefix: '', // Avoid prefixes like @
+});
+
+export const extractElementAttributes = (element: any): SVGElementData => {
   const props: Record<string, any> = {};
 
-  // Convert attributes to React props with correct casing
-  Array.from(element.attributes).forEach((attr) => {
-    const reactKey = camelize(attr.name);
-    props[reactKey] = attr.value;
-  });
+  // Convert attributes to React props
+  if (element['@_']) {
+    Object.entries(element['@_']).forEach(([key, value]) => {
+      props[camelize(key)] = value;
+    });
+  }
 
   // Get all child elements recursively
-  const children: SVGElementData[] = Array.from(element.children).map((child) =>
-    extractElementAttributes(child)
-  );
+  const children = Object.entries(element)
+    .filter(([key]) => key !== '@_') // Ignore attributes object
+    .map(([key, value]) => ({
+      type: key,
+      props: {},
+      children: Array.isArray(value) ? value.map(extractElementAttributes) : [],
+    }));
 
-  return {
-    type: element.tagName.toLowerCase(),
-    props: convertPropsToReact(props),
-    children,
-  };
+  return { type: element.tagName?.toLowerCase() ?? 'unknown', props, children };
 };
 
 export const extractSVGAttributes = (svgString?: string) => {
-  const parser = new DOMParser();
-  // TODO: handle undefined
-  const doc = parser.parseFromString(svgString!, 'image/svg+xml');
-  const svg = doc.querySelector('svg');
+  if (!svgString) return null;
+  const parsedSVG = parser.parse(svgString);
 
-  if (!svg) return null;
+  if (!parsedSVG.svg) return null;
 
-  const props: Record<string, string> = {};
-  Array.from(svg.attributes).forEach((attr) => {
-    props[attr.name] = attr.value;
-  });
-
-  const elements = Array.from(svg.children).map((child) =>
-    extractElementAttributes(child)
-  );
+  const props: Record<string, string> = parsedSVG.svg['@_'] || {};
+  const elements = Object.entries(parsedSVG.svg)
+    .filter(([key]) => key !== '@_')
+    .map(([key, value]) => ({
+      type: key,
+      props: {},
+      children: Array.isArray(value) ? value.map(extractElementAttributes) : [],
+    }));
 
   return {
     type: 'svg',
     props: convertPropsToReact(props),
     elements,
   };
+};
+
+export const convertSvgToReact = (svgContent: string) => {
+  // Regex to match style attribute in SVG
+  const styleRegex = /style=['"]([^'"]*)['"]/g;
+
+  /**
+   * Converts a CSS style string to a React style object.
+   * - Splits the string by semicolons (`;`) to separate individual styles.
+   * - Converts each style property to camelCase and adds it to an object.
+   *
+   * @param {string} styleString - The CSS style string.
+   * @returns {Object} The style object in camelCase format.
+   */
+  const convertStyleToObject = (
+    styleString: string
+  ): Record<string, string> => {
+    return styleString
+      .split(';')
+      .reduce((styleObj: Record<string, string>, styleProp) => {
+        if (!styleProp.trim()) return styleObj; // Skip empty style properties
+        const [key, value] = styleProp.split(':').map((s) => s.trim()); // Split the property into key and value
+        const camelCaseKey = key.replace(/-([a-z])/g, (_, char) =>
+          char.toUpperCase()
+        ); // Convert key to camelCase
+        styleObj[camelCaseKey] = value; // Add the property to the object
+        return styleObj;
+      }, {});
+  };
+
+  // Replace style attribute with React style object
+  const convertedSvg = svgContent.replace(styleRegex, (_, styleString) => {
+    const styleObject = convertStyleToObject(styleString); // Convert the style string to an object
+    return `style={${JSON.stringify(styleObject)}}`; // Return the React-compatible style object
+  });
+
+  return convertedSvg;
 };
 
 /**

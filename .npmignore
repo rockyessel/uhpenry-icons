@@ -1,8 +1,16 @@
 node_modules
+package-lock.json
 src
 rollup.config.js
 tsconfig.json
 .gitignore
 app
 scripts
-/package/apps
+package
+CONTRIBUTING.md
+LICENSE
+README.md
+
+*.map
+*.gz
+*.br

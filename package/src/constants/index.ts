@@ -1,4 +1,3 @@
-import iconsLists from '../icons.json';
 import iconJson from '../icons.json';
 import { IIconLibrary } from '../types';
 

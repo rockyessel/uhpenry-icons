@@ -98,10 +98,10 @@ export const processSvgFiles = async () => {
 
       const newIconEntry = {
         title: icon.title,
-        category: icon.category,
         icon: iconData,
-        url: icon.url,
-        other_names:[],
+        other_names: [],
+        // url: icon.url,
+        // category: icon.category,
       };
 
       // If the icon doesn't exist, add it

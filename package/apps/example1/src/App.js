@@ -6,10 +6,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Icon name='React Router' theme='dark' width={50} height={50} />
-        <Icon name='Vercel' theme='light' width={50} height={50} />
-        <Icon name='Preact' theme='light' />
-        <Icon name='Motion' theme='dark' width={10} height={10} />
+        <Icon name='React Router' theme='dark' size={50} />
+        <Icon name='Vercel' theme='light' size={50} />
+        <Icon name='Preact' theme='light' size={100} />
+        <Icon name='Motion' theme='dark' size={10} />
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
