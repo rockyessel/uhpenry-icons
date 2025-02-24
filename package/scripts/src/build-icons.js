@@ -11,6 +11,9 @@ const INPUT_FILE = pathToFileURL(path.join(DESTINATION, "svgs.js")).href; // Con
 const OUTPUT_FILE = path.join(__dirname, "../../src/icons.json"); // Output file
 const SVG_FOLDER = path.join(DESTINATION, "library"); // Folder where SVGs are stored
 
+
+const TYPES_FOLDER = path.join(__dirname, "../../src/types.index.ts")
+
 // Read existing icons.json if it exists
 const existingIcons = fs.existsSync(OUTPUT_FILE)
   ? JSON.parse(fs.readFileSync(OUTPUT_FILE, "utf-8"))

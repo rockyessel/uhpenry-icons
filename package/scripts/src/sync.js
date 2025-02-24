@@ -13,14 +13,6 @@ const BRANCH = "main";
 const GITHUB_USER = "pheralb";
 const DESTINATION = path.join(__dirname, "../svgl");
 
-// Files to merge
-const TYPE_FILES = [
-  "src/types/svg.ts",
-  "src/types/categories.ts",
-];
-
-const OUTPUT_TYPE_FILE = path.join(DESTINATION, "types.ts");
-
 // Other files
 const SVGS_FILE_PATH = "src/data/svgs.ts";
 const SVG_LIBRARY_PATH = "static/library"; // Folder with SVGs
@@ -31,28 +23,6 @@ const fetchFiles = async (url) => {
   return response.json();
 }
 
-// Download and merge type files
-const downloadAndMergeTypes = async () => {
-  let mergedContent = "";
-
-  for (const filePath of TYPE_FILES) {
-    const API_URL = `https://raw.githubusercontent.com/${GITHUB_USER}/${REPO}/${BRANCH}/${filePath}`;
-    console.log(`Fetching: ${filePath}`);
-
-    const response = await fetch(API_URL);
-    if (!response.ok) {
-      console.error(`❌ Failed to fetch ${filePath}`);
-      continue;
-    }
-
-    const content = await response.text();
-    mergedContent += `// ---- START OF ${filePath} ----\n` + content + `\n// ---- END OF ${filePath} ----\n\n`;
-  }
-
-  await fs.ensureDir(DESTINATION);
-  fs.writeFileSync(OUTPUT_TYPE_FILE, mergedContent);
-  console.log(`✅ Merged type files saved to ${OUTPUT_TYPE_FILE}`);
-}
 
 // Download SVG array object
 const downloadSvgArray = async () => {
@@ -68,12 +38,15 @@ const downloadSvgArray = async () => {
   const content = await response.text();
   const outputFilePath = path.join(DESTINATION, "svgs.js");
 
-  console.log({ content });
+  const transformedContent = content
+    .replace(/import.*?(?=export)/s, '')  // Remove everything from 'import' until 'export'
+    .replace(/export const svgs\s*=\s*/, 'export const svgs = ')  // Clean up export declaration
+    .replace(/\s*:\s*.*?\[\]/g, '')  // Remove type annotations
+    .trim();
 
-  fs.writeFileSync(outputFilePath, content.replace(/import type \{.*?\};?\n?/s, '').replace(/ from ['"].*?['"];/, '').replace(/: iSVG\[\]/g, ''));
+  fs.writeFileSync(outputFilePath, transformedContent);
   console.log(`✅ SVG array saved to ${outputFilePath}`);
 }
-
 // Download all SVG files from library (properly skipping existing files)
 const downloadSvgFiles = async () => {
   const API_URL = `https://api.github.com/repos/${GITHUB_USER}/${REPO}/contents/${SVG_LIBRARY_PATH}?ref=${BRANCH}`;
@@ -120,7 +93,6 @@ const downloadSvgFiles = async () => {
 
 
 export const sync = async () => {
-  await downloadAndMergeTypes();
   await downloadSvgArray();
   await downloadSvgFiles();
 }

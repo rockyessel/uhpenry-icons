@@ -9,6 +9,7 @@ function App() {
         <Icon name='React Router' theme='dark' width={50} height={50} />
         <Icon name='Vercel' theme='light' width={50} height={50} />
         <Icon name='Preact' theme='light' />
+        <Icon name='Motion' theme='dark' width={10} height={10} />
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
